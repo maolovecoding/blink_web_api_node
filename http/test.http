@@ -1,0 +1,13 @@
+###
+GET http://localhost:3000/v1/classic/latest
+Accept: application/json
+
+###
+GET http://localhost:3000/v1/book/latest
+Accept: application/json
+###
+
+POST http://localhost:3000/v1/8/classic/latest
+Accept: application/json
+
+###
