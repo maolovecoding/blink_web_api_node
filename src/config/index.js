@@ -1,7 +1,6 @@
 
+const config = require("./config.js");
 
-
-
-export {
-
+module.exports = {
+  ...config
 }

@@ -11,3 +11,13 @@ POST http://localhost:3000/v1/8/classic/latest
 Accept: application/json
 
 ###
+POST http://localhost:3000/v1/user/register HTTP/1.1
+
+{
+  "nickname": "莫按摩",
+  "password1": "111111$$",
+  "password2": "111111$$",
+  "email": "111abc111@qq.com"
+}
+
+###

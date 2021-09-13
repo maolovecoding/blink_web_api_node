@@ -54,7 +54,7 @@ class Success extends HttpException {
    * @param {number} [code=201]
    * @memberof Success
    */
-  constructor(msg = "success", errorCode = 0, code = 201) {
+  constructor(msg = "success Ok！", errorCode = 0, code = 201) {
     super(msg, errorCode, code);
   }
 }
@@ -96,10 +96,10 @@ class Forbidden extends HttpException {
 /**
  * 重复点赞类消息返回
  *
- * @class LinkError
+ * @class LikeError
  * @extends {HttpException}
  */
-class LinkError extends HttpException {
+class LikeError extends HttpException {
   constructor(msg = "你已经点赞过！", errorCode = 60001, code = 400) {
     super(msg, errorCode, code);
   }
@@ -124,6 +124,6 @@ module.exports = {
   NotFound,
   AuthFailed,
   Forbidden,
-  LinkError,
+  LikeError,
   DislikeError,
 };
