@@ -18,11 +18,15 @@ module.exports = {
     // 令牌的过期时间 单位是s
     expiresIn: 60 * 60 * 60
   },
-  wx:{
+  wx: {
     // 微信小程序的appid
-    appId:"wx1c6b99ecb9cf8fd0",
+    appId: "wx1c6b99ecb9cf8fd0",
     // 秘钥
-    appSecret:"26cb51001becf36cf542e1831c24c97b",
-    loginUrl:`https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code`
+    appSecret: "26cb51001becf36cf542e1831c24c97b",
+    loginUrl: `https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code`
+  },
+  yushu: {
+    detailUrl: 'http://t.yushu.im/v2/book/id/%s',
+    keywordUrl: 'http://t.yushu.im/v2/book/search?q=%s&count=%s&start=%s&summary=%s',
   }
 }

@@ -3,7 +3,12 @@ GET http://localhost:3000/v1/classic/latest
 Accept: application/json
 
 ###
-GET http://localhost:3000/v1/book/latest
+GET http://localhost:3000/v1/book/1120/detail
+Accept: application/json
+###
+
+###
+GET http://localhost:3000/v1/book/search?q='Python'
 Accept: application/json
 ###
 

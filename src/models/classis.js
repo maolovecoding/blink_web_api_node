@@ -10,7 +10,10 @@ const classicFields = {
   // 出版时间
   pubdate: DataTypes.DATEONLY,
   // 喜欢的数量
-  fav_nums: DataTypes.INTEGER,
+  fav_nums: {
+    type: DataTypes.INTEGER,
+    default: 0
+  },
   // 标题
   title: DataTypes.STRING,
   // 类型

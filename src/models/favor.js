@@ -120,6 +120,35 @@ class Favor extends Model {
     // 根据type和fav_id 去实体表中查询具体的信息
     return await Art.getArtList(arts);
   }
+  /**
+   * 查询出当前图书的点赞书籍，且当前用户是否对该书籍点赞
+   *
+   * @static
+   * @param {*} bookId
+   * @memberof Favor
+   */
+  static async getBookFavor(uid, bookId) {
+    // 书籍的点赞数量
+    const favorNums = await Favor.count({
+      where: {
+        art_id: bookId,
+        type: 400
+      }
+    });
+    // 我是否点赞 
+    const myFavor = await Favor.findOne({
+      where: {
+        art_id: bookId,
+        type: 400,
+        uid
+      }
+    });
+    return {
+      fav_nums: favorNums,
+      // 1 表示点赞
+      like_status: myFavor ? 1 : 0
+    }
+  }
 }
 Favor.init({
   // 用户标识
