@@ -2,7 +2,7 @@
  * @Author: 毛毛 
  * @Date: 2021-09-11 09:21:01 
  * @Last Modified by: 毛毛
- * @Last Modified time: 2021-09-13 17:12:45
+ * @Last Modified time: 2021-09-15 17:52:13
  */
 const Router = require("koa-router");
 const { ParameterException } = require("../../core/exception/http-exception.js");
@@ -48,12 +48,62 @@ router.get("/latest", new Auth(USER_LEVEL).m, async (ctx, next) => {
   art.setDataValue("index", flow.index);
   // TODO koa框架，在返回值进行JSON序列化的时候，会自动序列化dataValues里面的属性
   // 其他的属性值不会进行序列化 也就是不会返回给前端
-  ctx.body = {
-    is_valid: art
-  };
+  const likeLatest = await Favor.userLikeIt(
+    flow.art_id, flow.type, ctx.auth.uid);
+  art.setDataValue('like_status', likeLatest);
+  
+  ctx.body = art;
   // 返回值
   // ctx.body = { };
 });
+
+
+// 获取指定期刊的下一期
+router.get("/:index/next", new Auth().m, async ctx => {
+  const v = await new PositiveIntegerValidator().validate(ctx, {
+    id: 'index'
+  });
+  const index = v.get('path.index');
+  const flow = await Flow.findOne({
+    where: {
+      index: index + 1
+    }
+  });
+  if (!flow) {
+    throw new NotFound();
+  }
+  const art = await Art.getData(flow.art_id, flow.type);
+  const likeNext = await Favor.userLikeIt(flow.art_id, flow.type);
+  art.setDataValue("index", flow.index);
+  art.setDataValue("like_status", likeNext);
+  ctx.body = art;
+});
+
+// 获取指定期刊的上一期
+router.get('/:index/previous', new Auth().m, async (ctx, next) => {
+  const v = await new PositiveIntegerValidator().validate(ctx, {
+    id: 'index'
+  })
+
+  const index = v.get('path.index');
+  const flow = await Flow.findOne({
+    where: {
+      index: index - 1
+    }
+  });
+  if (!flow) {
+    throw new NotFound();
+  }
+
+  let art = await Art.getData(flow.art_id, flow.type);
+  const likePrevious = await Favor.userLikeIt(flow.art_id, flow.type, ctx.auth.uid);
+
+  art.setDataValue('index', flow.index);
+  art.setDataValue('like_status', likePrevious);
+
+  ctx.body = art;
+})
+
 
 // 返回某个classic的具体信息的路由接口
 router.get("/:type/:id/favor", new Auth().m, async ctx => {

@@ -1,5 +1,7 @@
 // 导入koa
 const Koa = require("koa");
+const static = require("koa-static");
+const path = require("path")
 // 自动注册路由的第三方库
 // const requireDirectory = require("require-directory");
 
@@ -17,6 +19,7 @@ const app = new Koa();
 // 全局异常处理
 app.use(catchError);
 app.use(parser());
+app.use(static(path.join(__dirname,"./static")));
 // 端口
 const port = 3000;
 

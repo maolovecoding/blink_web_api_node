@@ -1,10 +1,16 @@
 const { Model, DataTypes } = require("sequelize");
 const db = require("../core/db");
+const {host} = require("../config")
 
 // 定义一些共有的属性字段
 const classicFields = {
   // 图片
-  image: DataTypes.STRING,
+  image: {
+    type: DataTypes.STRING,
+    // get() {
+    //     return host + this.getDataValue("image");
+    // }
+  },
   // 内容
   content: DataTypes.STRING,
   // 出版时间

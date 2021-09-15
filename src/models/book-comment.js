@@ -37,15 +37,24 @@ class Comment extends Model {
    * @param {*} bookId 书籍id
    * @memberof Comment
    */
-  static async getComment(bookId){
+  static async getComment(bookId) {
     const bookComments = await Comment.findAll({
-      where:{
-        id:bookId
+      where: {
+        id: bookId
       }
     });
     return bookComments;
-  } 
+  }
+  // 序列化
+  // toJSON() {
+  //   return {
+  //     content: this.getDataValue("content"),
+  //     nums: this.getDataValue("nums")
+  //   }
+  // }
 }
+
+// Comment.prototype.exclude = ["book_id","id"];
 
 Comment.init({
   content: DataTypes.STRING(256),

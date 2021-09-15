@@ -1,12 +1,14 @@
 const { Op } = require("sequelize");
 const { flatten } = require("lodash");
 const Favor = require("./favor");
+const { host } = require("../config")
+
 const { Movie, Music, Sentence } = require("./classis");
 /*
  * @Author: 毛毛 
  * @Date: 2021-09-12 19:35:44 
  * @Last Modified by: 毛毛
- * @Last Modified time: 2021-09-13 16:39:17
+ * @Last Modified time: 2021-09-15 17:42:05
  */
 class Art {
   constructor(art_id, type) {
@@ -62,6 +64,17 @@ class Art {
         });
         break;
       case 400:
+        const Book = require("./book");
+        art = await Book.findOne({
+          where
+        });
+        // 没找到书籍
+        if (!art) {
+          art = await Book.create({
+            id: art_id,
+            fav_nums: 0
+          })
+        }
         break;
     }
     return art;

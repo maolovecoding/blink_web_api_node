@@ -7,6 +7,7 @@ const Favor = require("./favor");
 class Book extends Model {
   async bookDetail(id) {
     const url = format(yushu.detailUrl, id);
+    console.log(url);
     // const detail = axios.get(url);
     // return detail.data;
     const { data } = await axios.get(url);

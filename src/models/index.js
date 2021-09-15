@@ -6,5 +6,6 @@ module.exports = {
   Favor:require("./favor"),
   HotBook:require("./hot-book"),
   Book:require("./book"),
-  Comment:require("./book-comment")
+  Comment:require("./book-comment"),
+  Book:require("./book")
 }

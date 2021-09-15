@@ -6,7 +6,7 @@ class HotBook extends Model {
   static async getAll() {
     const books = await HotBook.findAll({
       // 根据index进行排序
-      order: ["order"]
+      order: ["index"]
     });
     const ids = [];
     books.forEach((book) => {
@@ -37,7 +37,7 @@ class HotBook extends Model {
         count = favor.get("count");
       }
     });
-    book.setDataValue("count", count);
+    book.setDataValue("fav_nums", count);
     return book;
   }
 }

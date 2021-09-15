@@ -2,7 +2,7 @@ const { NotFound } = require("http-errors");
 const { Model, DataTypes, Op } = require("sequelize");
 const db = require("../core/db");
 const { LikeError, DislikeError } = require("../core/exception/http-exception");
-const Art = require("./art");
+
 
 // 业务表
 /**
@@ -42,6 +42,7 @@ class Favor extends Model {
       }, {
         transaction: t
       });
+      const Art = require("./art");
       const art = await Art.getData(art_id, type);
       // 给这个模型的那个字段进行+1 有by指定具体增大的数量
       await art.increment("fav_nums", { by: 1, transaction: t });
@@ -57,6 +58,7 @@ class Favor extends Model {
    * @memberof Favor
    */
   static async dislike(art_id, type, uid) {
+    const Art = require("./art");
     const favor = await Favor.findOne({
       where: {
         art_id, type, uid
@@ -107,6 +109,7 @@ class Favor extends Model {
    * @memberof Favor
    */
   static async getMyClassicFavors(uid) {
+    const Art = require("./art");
     const arts = await Favor.findAll({
       where: {
         uid,

@@ -11,16 +11,15 @@ const router = new Router({
 // 获取热门书籍数据
 router.get("/hot_list", async (ctx, next) => {
   const books = await HotBook.getAll();
-  ctx.body = {
-    books
-  }
+  ctx.body = books;
 });
 
 // 获取指定书籍的详情信息
 router.get("/:id/detail", async (ctx) => {
+  console.log(1);
   const v = await new PositiveIntegerValidator().validate(ctx);
   const book = await new Book().bookDetail(v.get("path.id"));
-  console.log(book);
+  console.log(2);
   ctx.body = book;
 });
 
@@ -65,7 +64,10 @@ router.get("/:book_id/short_comment", new Auth().m, async (ctx) => {
     id: "book_id"
   });
   const comments = await Comment.getComment(v.get("path.book_id"));
-  ctx.body = comments;
+  ctx.body = {
+    comment: comments,
+    book_id: v.get("path.book_id")
+  };
 });
 
 // 热搜  这里只是简单模拟
